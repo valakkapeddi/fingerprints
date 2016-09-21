@@ -97,6 +97,7 @@ char delimiter[2] = " ";
 
 int main() {
     char input_line[INPUT_BUFFER_SIZE];
+    gallery_cache = hashmap_new();
 
     while (1) {
         printf("Awaiting user input.\n");
@@ -136,6 +137,7 @@ int main() {
         
         free(args);
     }
+    hashmap_free(gallery_cache);
 
     return 0;
 }

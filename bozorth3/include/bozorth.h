@@ -54,6 +54,7 @@ of the software.
 #include <sys/types.h>
 #include <unistd.h> /* Needed for type pid_t */
 #include <errno.h>
+#include <hashmap.h>
 
 /* If not defined in sys/param.h */
 #ifndef MAX
@@ -258,6 +259,8 @@ extern int rp[ RP_SIZE ];
 extern int rf[RF_SIZE_1][RF_SIZE_2];
 extern int cf[CF_SIZE_1][CF_SIZE_2];
 extern int y[20000];
+
+extern map_t gallery_cache;
 
 /**************************************************************************/
 /**************************************************************************/

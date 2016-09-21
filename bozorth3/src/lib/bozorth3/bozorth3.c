@@ -80,7 +80,6 @@ of the software.
 
 #include <stdio.h>
 #include <bozorth.h>
-#include <hashmap.h>
 
 /***********************************************************************/
 void bz_comp(

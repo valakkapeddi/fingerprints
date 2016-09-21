@@ -72,7 +72,8 @@ bozorth3.o: bozorth3.c /usr/include/stdio.h /usr/include/sys/cdefs.h \
   /usr/include/_types/_intmax_t.h /usr/include/_types/_uintmax_t.h \
   /usr/include/alloca.h /usr/include/sys/_types/_ct_rune_t.h \
   /usr/include/sys/_types/_rune_t.h /usr/include/sys/_types/_wchar_t.h \
-  /usr/include/errno.h /usr/include/sys/errno.h /usr/include/math.h \
+  /usr/include/errno.h /usr/include/sys/errno.h \
+  /Users/paladin/hax/nbis/bozorth3/include/hashmap.h /usr/include/math.h \
   /Users/paladin/hax/nbis/bozorth3/include/bz_array.h \
   /Users/paladin/hax/nbis/exports/include/version.h \
   /usr/include/string.h /usr/include/strings.h \
@@ -151,7 +152,8 @@ bozorth3.c /usr/include/stdio.h /usr/include/sys/cdefs.h :
   /usr/include/_types/_intmax_t.h /usr/include/_types/_uintmax_t.h :
   /usr/include/alloca.h /usr/include/sys/_types/_ct_rune_t.h :
   /usr/include/sys/_types/_rune_t.h /usr/include/sys/_types/_wchar_t.h :
-  /usr/include/errno.h /usr/include/sys/errno.h /usr/include/math.h :
+  /usr/include/errno.h /usr/include/sys/errno.h :
+  /Users/paladin/hax/nbis/bozorth3/include/hashmap.h /usr/include/math.h :
   /Users/paladin/hax/nbis/bozorth3/include/bz_array.h :
   /Users/paladin/hax/nbis/exports/include/version.h :
   /usr/include/string.h /usr/include/strings.h :
