@@ -459,6 +459,8 @@ struct xyt_struct * bz_load( const char * xyt_file )
 
    xyt_s = bz_prune(xytq_s, 0);
    
+   xyt_s->filename = strdup(xyt_file);
+   
    if ( verbose_load )
       fprintf( errorfp, "Loaded %s\n", xyt_file );
 
@@ -647,6 +649,7 @@ struct xyt_struct * bz_prune(struct xytq_struct *xytq_s, int verbose_load)
       xyt_s->thetacol[j] = c[j].col[2];
    }
    xyt_s->nrows = nminutiae;
+   xyt_s->cached = 0;
 
    return xyt_s;
 }

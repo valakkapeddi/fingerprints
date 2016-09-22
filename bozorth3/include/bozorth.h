@@ -193,6 +193,8 @@ struct xyt_struct {
 	int xcol[     MAX_BOZORTH_MINUTIAE ];
 	int ycol[     MAX_BOZORTH_MINUTIAE ];
 	int thetacol[ MAX_BOZORTH_MINUTIAE ];
+        int cached;
+        char* filename;
 };
 
 struct xytq_struct {
@@ -205,9 +207,10 @@ struct xytq_struct {
 
 
 struct save_gallery {
-    struct xyt_struct minutiae_records;
+    struct xyt_struct* minutiae_records;
     int gallery_records[ FCOLS_SIZE_1 ][ COLS_SIZE_2 ];
     int sorted_indexes[ FCOLPT_SIZE ];
+    int gallery_len;
 };
 
 #define XYT_NULL ( (struct xyt_struct *) NULL ) /* bz_load() */

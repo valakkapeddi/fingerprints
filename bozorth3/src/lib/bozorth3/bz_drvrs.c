@@ -133,16 +133,21 @@ int bozorth_gallery_init(struct xyt_struct * gstruct) {
 
     mfim = fim; /* Init search to end of On-File Record's pointwise comparison table (last edge in Web) */
 
-
-
     bz_find(&mfim, fcolpt);
-
-
 
     if (mfim < FDD) /* Makes sure there are a reasonable number of edges (at least 500, if possible) to analyze in the Web */
         mfim = (fim > FDD) ? FDD : fim;
-
-
+    
+    struct xyt_struct* gallery_copy = (struct xyt_struct *) malloc( sizeof( struct xyt_struct ) );
+    memcpy( gallery_copy, gstruct, sizeof( struct xyt_struct) );
+    
+    struct save_gallery* record = (struct save_gallery*) malloc( sizeof(struct save_gallery));
+    record->minutiae_records = gallery_copy;
+    record->gallery_len = mfim;
+    
+    memcpy(record->gallery_records, fcols);
+    
+    
 
 
 
