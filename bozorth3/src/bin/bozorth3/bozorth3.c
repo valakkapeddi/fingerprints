@@ -98,15 +98,21 @@ char delimiter[2] = " ";
 int main() {
     char input_line[INPUT_BUFFER_SIZE];
     gallery_cache = hashmap_new();
+    
+//    int should_quit = 0;
 
     while (1) {
+//        if(should_quit) {
+//            exit(0);
+//        }
+        
         printf("Awaiting user input.\n");
         // -p /Users/paladin/hax/nbis/Test_5.0.0/bozorth3/data/a011p_04.xyt /Users/paladin/hax/nbis/Test_5.0.0/bozorth3/data/a011r_04.xyt
         fgets(input_line, INPUT_BUFFER_SIZE, stdin);
 
         input_line[strcspn(input_line, "\n")] = 0;
         
-        //strncpy(input_line, "-p /Users/paladin/hax/nbis/Test_5.0.0/bozorth3/data/a011p_04.xyt /Users/paladin/hax/nbis/Test_5.0.0/bozorth3/data/a011r_04.xyt", 126);
+//        strncpy(input_line, "-p /Users/paladin/hax/nbis/Test_5.0.0/bozorth3/data/a011p_04.xyt /Users/paladin/hax/nbis/Test_5.0.0/bozorth3/data/a011r_04.xyt", 126);
         char** args = 0;
         args = malloc(sizeof (char*) * ARGS_LEN);
 
@@ -136,6 +142,8 @@ int main() {
         opterr = 0;
         
         free(args);
+        
+//        should_quit++;
     }
     hashmap_free(gallery_cache);
 

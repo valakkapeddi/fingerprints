@@ -143,14 +143,27 @@ int bozorth_gallery_init(struct xyt_struct * gstruct) {
     
     struct save_gallery* record = (struct save_gallery*) malloc( sizeof(struct save_gallery));
     record->minutiae_records = gallery_copy;
-    record->gallery_len = mfim;
+//    record->gallery_len = mfim;
     
-    memcpy(record->gallery_records, fcols);
+    memcpy(record->gallery_records, fcols, sizeof(int) * FCOLS_SIZE_1 * COLS_SIZE_2);
+    for(int a =0; a< FCOLS_SIZE_1; a++) {
+        int *n = fcolpt[a];
+        int index = (fcolpt[a] - &fcols[0][0]) / COLS_SIZE_2;
+        record->sorted_indexes[a] = index;
+    }
+    
+    char* key = malloc(strlen(gstruct->filename));
+    strcpy(key, gstruct->filename);
+//    
+    hashmap_put(gallery_cache, key, record);
+    
+    struct save_gallery* from_cache;
+    int result = hashmap_get(gallery_cache, key, (void**)(&from_cache));
     
     
 
 
-
+    fprintf(stdout, "Exiting gallery thingie.\n");
     return mfim;
 }
 
