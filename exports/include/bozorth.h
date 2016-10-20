@@ -294,6 +294,9 @@ extern char *get_probe_filename(void);
 extern char *get_gallery_filename(void);
 extern char *get_next_file(char *, FILE *, FILE *, int *, int *, char *,
 			int, char **, int *, int *, int, int);
+
+extern char * next_file_line(FILE *, int *, char *, int *, int, int);
+        
 extern char *get_score_filename(const char *, const char *);
 extern char *get_score_line(const char *, const char *, int, int, const char *);
 extern struct xyt_struct *bz_load(const char *);

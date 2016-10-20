@@ -95,24 +95,76 @@ char delimiter[2] = " ";
 
 /**********************************************************************************/
 
+
+
 int main() {
     char input_line[INPUT_BUFFER_SIZE];
-    gallery_cache = hashmap_new();
+    char * g;
+    char gline[ MAX_LINE_LENGTH ];
+    int done_gallery_now = 0;
+    int done_gallery_afterwards = 0;
+    int glineno = 0;
+    int gline_begin = -1;
+    int gline_end = -1;
+    FILE * gallery_fp = FPNULL;
+    char * probe_list;
     
-//    int should_quit = 0;
+    int gallery_count = 0;
+
+    fprintf(stdout, "is the right code being called?\n");
+
+    fgets(input_line, INPUT_BUFFER_SIZE, stdin);
+
+    probe_list = &input_line;
+
+    gallery_fp = fopen(probe_list, "r");
+
+    if (gallery_fp == FPNULL) {
+        fprintf(errorfp, "%s: ERROR: fopen() of probe list file \"%s\" failed: %s\n",
+                get_progname(), probe_list, strerror(errno));
+        exit(1);
+    }
+        
+    struct xyt_struct ** loaded_records = malloc(sizeof(struct xyt_struct*) * 4);
+    
+    fprintf(stdout, "Opened gallery list.  Let's count 'em.\n");
+    while(1) {
+        g = next_file_line(gallery_fp, &done_gallery_afterwards, &gline[0], &glineno, gline_begin, gline_end);
+        
+        if(g == CNULL) {
+            break;
+        }
+        fprintf(stdout, "Loading file: %s\n", g);
+          struct xyt_struct* current = bz_load(g);
+          fprintf(stdout, "Loaded %d records from %s\n", current->nrows, current->filename);
+          *(loaded_records + gallery_count++) = current;
+    }
+    
+    fprintf(stdout, "\n\n\n");
+    for(int x = 0; x < 5; x++) {
+        struct xyt_struct* record = *(loaded_records + x);
+        fprintf(stdout, "Loaded %d records from %s\n", record->nrows, record->filename);
+    }
+
+    return 0;
+}
+
+int ignore_main() {
+    char input_line[INPUT_BUFFER_SIZE];
+    gallery_cache = hashmap_new();
+
+    //    int should_quit = 0;
 
     while (1) {
-//        if(should_quit) {
-//            exit(0);
-//        }
-        
+        //        if(should_quit) {
+        //            exit(0);
+        //        }
+
         printf("Awaiting user input.\n");
-        // -p /Users/paladin/hax/nbis/Test_5.0.0/bozorth3/data/a011p_04.xyt /Users/paladin/hax/nbis/Test_5.0.0/bozorth3/data/a011r_04.xyt
         fgets(input_line, INPUT_BUFFER_SIZE, stdin);
 
         input_line[strcspn(input_line, "\n")] = 0;
-        
-//        strncpy(input_line, "-p /Users/paladin/hax/nbis/Test_5.0.0/bozorth3/data/a011p_04.xyt /Users/paladin/hax/nbis/Test_5.0.0/bozorth3/data/a011r_04.xyt", 126);
+
         char** args = 0;
         args = malloc(sizeof (char*) * ARGS_LEN);
 
@@ -128,22 +180,22 @@ int main() {
         printf("Parsed out %d args.\n", current_args_len);
 
         for (int a = 0; *(args + a); a++) {
-            if (strcmp(*(args + a), "-q")  == 0) {
+            if (strcmp(*(args + a), "-q") == 0) {
                 printf("Exiting!\n");
                 exit(0);
             }
             printf("Item at index %d is: %s\n", a, *(args + a));
         }
-        
+
         old_main(current_args_len, args);
-        
+
         optind = 0;
         optopt = 0;
         opterr = 0;
-        
+
         free(args);
-        
-//        should_quit++;
+
+        //        should_quit++;
     }
     hashmap_free(gallery_cache);
 
