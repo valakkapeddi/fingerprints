@@ -210,6 +210,7 @@ struct save_gallery {
     struct xyt_struct* minutiae_records;
     int gallery_records[ FCOLS_SIZE_1 ][ COLS_SIZE_2 ];
     int sorted_indexes[ FCOLPT_SIZE ];
+    int* indexptrs[ FCOLPT_SIZE ];
     int gallery_len;
 };
 
@@ -245,6 +246,11 @@ extern int scols[ SCOLS_SIZE_1 ][ COLS_SIZE_2 ];
 extern int fcols[ FCOLS_SIZE_1 ][ COLS_SIZE_2 ];
 extern int * scolpt[ SCOLPT_SIZE ];
 extern int * fcolpt[ FCOLPT_SIZE ];
+
+extern struct save_gallery** the_things_and_stuffs;
+extern struct save_gallery shalala[5];
+extern int gallery_number;
+
 extern int sc[ SC_SIZE ];
 extern int yl[ YL_SIZE_1 ][ YL_SIZE_2 ];
 /* Global arrays supporting "core" bozorth algorithm continued: */

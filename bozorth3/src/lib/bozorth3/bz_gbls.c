@@ -83,6 +83,9 @@ int sc[ SC_SIZE ];				/* Flags all compatible edges in the Subject's Web */
 int yl[ YL_SIZE_1 ][ YL_SIZE_2 ];
 
 map_t gallery_cache;
+struct save_gallery** the_things_and_stuffs;
+struct save_gallery shalala[5];
+int gallery_number;
 
 
 /**************************************************************************/

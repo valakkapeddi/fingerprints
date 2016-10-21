@@ -126,6 +126,8 @@ int main() {
     }
         
     struct xyt_struct ** loaded_records = malloc(sizeof(struct xyt_struct*) * 4);
+    the_things_and_stuffs = malloc(sizeof(struct save_gallery*) * 4);
+    gallery_count = 0;
     
     fprintf(stdout, "Opened gallery list.  Let's count 'em.\n");
     while(1) {
@@ -137,13 +139,20 @@ int main() {
         fprintf(stdout, "Loading file: %s\n", g);
           struct xyt_struct* current = bz_load(g);
           fprintf(stdout, "Loaded %d records from %s\n", current->nrows, current->filename);
+          bozorth_gallery_init(current);
           *(loaded_records + gallery_count++) = current;
     }
     
     fprintf(stdout, "\n\n\n");
-    for(int x = 0; x < 5; x++) {
+    for(int x = 0; x < 4; x++) {
         struct xyt_struct* record = *(loaded_records + x);
-        fprintf(stdout, "Loaded %d records from %s\n", record->nrows, record->filename);
+        fprintf(stdout, "At %d - Loaded %d records from %s\n", x, record->nrows, record->filename);
+    }
+    
+    fprintf(stdout, "\n\n\n");
+    for(int each = 0; each < 4; each++) {
+        struct save_gallery gallery_record = shalala[each];
+        fprintf(stdout, "Loaded comped %d records from %s\n", gallery_record.gallery_len, gallery_record.minutiae_records->filename);
     }
 
     return 0;
