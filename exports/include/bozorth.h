@@ -284,6 +284,7 @@ extern int bozorth_main(struct xyt_struct *, struct xyt_struct *);
 extern void bz_comp(int, int [], int [], int [], int *, int [][COLS_SIZE_2],
                     int *[]);
 extern void bz_find(int *, int *[]);
+extern int bz_match2(int, int, int *[]);
 extern int bz_match(int, int);
 extern int bz_match_score(int, struct xyt_struct *, struct xyt_struct *);
 extern void bz_sift(int *, int, int *, int, int, int, int *, int *);

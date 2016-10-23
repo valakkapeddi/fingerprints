@@ -340,9 +340,15 @@ void rtp_insert(int * rtp[], int l, int idx, int * ptr) {
 /* Return value is the # of compatible edge pairs           */
 
 /***********************************************************************/
-int bz_match(
+int bz_match(int probe_ptrlist_len, int gallery_ptrlist_len) {
+    bz_match2(probe_ptrlist_len, gallery_ptrlist_len, fcolpt);
+}
+
+
+int bz_match2(
         int probe_ptrlist_len, /* INPUT:  pruned length of Subject's pointer list */
-        int gallery_ptrlist_len /* INPUT:  pruned length of On-File Record's pointer list */
+        int gallery_ptrlist_len,
+        int * actual_fcolpt[]/* INPUT:  pruned length of On-File Record's pointer list */
         ) {
     int i; /* Temp index */
     int ii; /* Temp index */
@@ -386,9 +392,6 @@ int bz_match(
     /* extern char * get_gallery_filename( void ); */
 
 
-
-
-
     st = 1;
     edge_pair_index = 0;
     rotptr = &rot[0][0];
@@ -401,7 +404,7 @@ int bz_match(
         /* Foreach sorted edge in On-File Record's Web ... */
 
         for (j = st; j <= gallery_ptrlist_len; j++) {
-            ff = fcolpt[j - 1];
+            ff = actual_fcolpt[j - 1];
             dz = *ff - *ss;
 
             fi = (2.0F * TK) * (*ff + *ss);

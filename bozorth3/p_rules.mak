@@ -53,7 +53,7 @@
 # This rules file contains all the necessary variables to build "bozorth3".
 #
 # ******************************************************************************
-include /Users/paladin/hax/nbis/rules.mak
+include /home/kyodai/hax/bjarne/fingerprints/rules.mak
 #
 # ------------------------------------------------------------------------------
 #

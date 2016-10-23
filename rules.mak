@@ -74,8 +74,8 @@ PROJ_NAME	:= nbis
 
 PACKAGES			:= bozorth3
 #
-DIR_ROOT			:= /Users/paladin/hax/nbis
-FINAL_INSTALLATION_DIR 		:= /Users/paladin/hax/nbis/tools
+DIR_ROOT			:= /home/kyodai/hax/bjarne/fingerprints
+FINAL_INSTALLATION_DIR 		:= /home/kyodai/hax/bjarne/fingerprints/tools
 X11_FLAG			:= 0
 X11_INC				:= /usr/X11R6/include
 X11_LIB				:= /usr/X11R6/lib

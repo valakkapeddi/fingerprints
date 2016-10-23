@@ -108,10 +108,10 @@ int main() {
     int gline_end = -1;
     FILE * gallery_fp = FPNULL;
     char * probe_list;
-    
+
     int gallery_count = 0;
 
-    fprintf(stdout, "is the right code being called?\n");
+    fprintf(stdout, "Input gallery file list.\n");
 
     fgets(input_line, INPUT_BUFFER_SIZE, stdin);
 
@@ -124,37 +124,73 @@ int main() {
                 get_progname(), probe_list, strerror(errno));
         exit(1);
     }
-        
-    struct xyt_struct ** loaded_records = malloc(sizeof(struct xyt_struct*) * 4);
-    the_things_and_stuffs = malloc(sizeof(struct save_gallery*) * 4);
+
+    struct xyt_struct ** loaded_records = malloc(sizeof (struct xyt_struct*) * 4);
+    the_things_and_stuffs = malloc(sizeof (struct save_gallery*) * 4);
     gallery_count = 0;
-    
+
     fprintf(stdout, "Opened gallery list.  Let's count 'em.\n");
-    while(1) {
+    while (1) {
         g = next_file_line(gallery_fp, &done_gallery_afterwards, &gline[0], &glineno, gline_begin, gline_end);
-        
-        if(g == CNULL) {
+
+        if (g == CNULL) {
             break;
         }
         fprintf(stdout, "Loading file: %s\n", g);
-          struct xyt_struct* current = bz_load(g);
-          fprintf(stdout, "Loaded %d records from %s\n", current->nrows, current->filename);
-          bozorth_gallery_init(current);
-          *(loaded_records + gallery_count++) = current;
+        struct xyt_struct* current = bz_load(g);
+        fprintf(stdout, "Loaded %d records from %s\n", current->nrows, current->filename);
+        bozorth_gallery_init(current);
+        *(loaded_records + gallery_count++) = current;
     }
-    
+
     fprintf(stdout, "\n\n\n");
-    for(int x = 0; x < 4; x++) {
+    for (int x = 0; x < 1; x++) {
         struct xyt_struct* record = *(loaded_records + x);
         fprintf(stdout, "At %d - Loaded %d records from %s\n", x, record->nrows, record->filename);
     }
-    
+
     fprintf(stdout, "\n\n\n");
-    for(int each = 0; each < 4; each++) {
+    int each = 0;
+    for (;each < 4; each++) {
         struct save_gallery gallery_record = shalala[each];
+        
         fprintf(stdout, "Loaded comped %d records from %s\n", gallery_record.gallery_len, gallery_record.minutiae_records->filename);
     }
 
+    fprintf(stdout,"\n\n\n\n");
+    int temp = 0;
+    while (temp < 1) {
+        fprintf(stdout, "Input probe file name or Q to quit.\n");
+        fgets(input_line, INPUT_BUFFER_SIZE, stdin);
+
+        char* tok = strtok(input_line, "\n");
+
+        fprintf(stdout, ">%s<\n", tok);
+
+        if (strcmp(tok, "Q") == 0) {
+            printf("Exiting!\n");
+            exit(0);
+        }
+        
+        struct xyt_struct* current_probe = bz_load(tok);
+        
+        int probe_length = bozorth_probe_init(current_probe);
+        
+        for(int gallery_instance=0; gallery_instance < each; gallery_instance++) {
+            struct save_gallery current_gallery = shalala[gallery_instance];
+            
+            memcpy(fcols, current_gallery.gallery_records, sizeof(int) * FCOLS_SIZE_1 * COLS_SIZE_2);
+            
+            fprintf(stdout,"Probe Length: %d, Gallery Length: %d\n", probe_length, current_gallery.gallery_len);
+            int matched_length = bz_match2(probe_length, current_gallery.gallery_len, current_gallery.indexptrs);
+            
+            int match_score = bz_match_score(matched_length, current_probe, current_gallery.minutiae_records);
+            
+            fprintf(stdout, "Score Vs gallery: %s -- %d\n", current_gallery.minutiae_records->filename, match_score);
+        }
+        temp++;
+
+    }
     return 0;
 }
 
