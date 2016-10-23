@@ -179,7 +179,7 @@ int main() {
         for(int gallery_instance=0; gallery_instance < each; gallery_instance++) {
             struct save_gallery current_gallery = shalala[gallery_instance];
             
-            memcpy(fcols, current_gallery.gallery_records, sizeof(int) * FCOLS_SIZE_1 * COLS_SIZE_2);
+//            memcpy(fcols, current_gallery.gallery_records, sizeof(int) * FCOLS_SIZE_1 * COLS_SIZE_2);
             
             fprintf(stdout,"Probe Length: %d, Gallery Length: %d\n", probe_length, current_gallery.gallery_len);
             int matched_length = bz_match2(probe_length, current_gallery.gallery_len, current_gallery.indexptrs);

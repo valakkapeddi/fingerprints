@@ -119,6 +119,9 @@ int bozorth_gallery_init(struct xyt_struct * gstruct) {
     int fim; /* number of pointwise comparisons for On-File record*/
     int mfim; /* Pruned length of On-File Record's pointer list */
 
+    struct save_gallery* record = (struct save_gallery*) malloc( sizeof(struct save_gallery));
+    struct xyt_struct* gallery_copy = (struct xyt_struct *) malloc( sizeof( struct xyt_struct ) );
+    memcpy( gallery_copy, gstruct, sizeof( struct xyt_struct) );
 
     /* Take On-File Record's points and compute pointwise comparison statistics table and sorted row-pointer list. */
     /* This builds a "Web" of relative edge statistics between points. */
@@ -128,30 +131,26 @@ int bozorth_gallery_init(struct xyt_struct * gstruct) {
             gstruct->ycol,
             gstruct->thetacol,
             &fim,
-            fcols,
-            fcolpt);
+            record->gallery_records,
+            record->indexptrs);
 
     mfim = fim; /* Init search to end of On-File Record's pointwise comparison table (last edge in Web) */
 
-    bz_find(&mfim, fcolpt);
+    bz_find(&mfim, record->indexptrs);
 
     if (mfim < FDD) /* Makes sure there are a reasonable number of edges (at least 500, if possible) to analyze in the Web */
         mfim = (fim > FDD) ? FDD : fim;
     
-    struct xyt_struct* gallery_copy = (struct xyt_struct *) malloc( sizeof( struct xyt_struct ) );
-    memcpy( gallery_copy, gstruct, sizeof( struct xyt_struct) );
-    
-    struct save_gallery* record = (struct save_gallery*) malloc( sizeof(struct save_gallery));
     record->minutiae_records = gallery_copy;
     record->gallery_len = mfim;
     
-    memcpy(record->gallery_records, fcols, sizeof(int) * FCOLS_SIZE_1 * COLS_SIZE_2);
-    memcpy(record->indexptrs, fcolpt, sizeof(int*) * FCOLPT_SIZE);
-    for(int a =0; a< FCOLS_SIZE_1; a++) {
-        int *n = fcolpt[a];
-        int index = (fcolpt[a] - &fcols[0][0]) / COLS_SIZE_2;
-        record->sorted_indexes[a] = index;
-    }
+//    memcpy(record->gallery_records, fcols, sizeof(int) * FCOLS_SIZE_1 * COLS_SIZE_2);
+//    memcpy(record->indexptrs, fcolpt, sizeof(int*) * FCOLPT_SIZE);
+//    for(int a =0; a< FCOLS_SIZE_1; a++) {
+//        int *n = fcolpt[a];
+//        int index = (fcolpt[a] - &fcols[0][0]) / COLS_SIZE_2;
+//        record->sorted_indexes[a] = index;
+//    }
     
 //    char* key = malloc(strlen(gstruct->filename));
 //    strcpy(key, gstruct->filename);
